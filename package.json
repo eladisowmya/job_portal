@@ -1,0 +1,17 @@
+{
+  "name": "job-portal",
+  "version": "1.0.0",
+  "description": "Job Portal Management System by Eladi Sowmya",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Eladi Sowmya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql": "^2.18.1"
+  },
+  "keywords": [],
+  "type": "commonjs"
+}
