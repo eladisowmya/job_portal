@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Jobs | JobPortal</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Jobs Page */
+
+        .jobs-page {
+            min-height: 100vh;
+            padding: 45px 5%;
+            background: #f3f6fd;
+        }
+
+        .jobs-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .jobs-heading h1 {
+            color: #172033;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .jobs-heading p {
+            color: #647084;
+        }
+
+        /* Search */
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            max-width: 650px;
+            margin: 25px auto;
+        }
+
+        .search-container input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px;
+            border: 1px solid #dce3ef;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-container input:focus {
+            border-color: #2458d3;
+        }
+
+        .search-container button {
+            padding: 13px 20px;
+            background: #2458d3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background: #153eaa;
+        }
+
+        /* Add Job Button */
+
+        .add-job-container {
+            max-width: 1200px;
+            margin: 25px auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .add-job-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #198754;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .add-job-button:hover {
+            background: #146c43;
+        }
+
+        /* Job Count */
+
+        .jobs-total {
+            max-width: 1200px;
+            margin: 20px auto;
+            color: #354052;
+            font-weight: bold;
+        }
+
+        /* Table */
+
+        .jobs-table-container {
+            max-width: 1200px;
+            margin: auto;
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .jobs-table {
+            width: 100%;
+            min-width: 1050px;
+            border-collapse: collapse;
+        }
+
+        .jobs-table th {
+            background: #1743a5;
+            color: white;
+            padding: 17px 14px;
+            text-align: left;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .jobs-table td {
+            padding: 15px 14px;
+            border-bottom: 1px solid #e8edf5;
+            color: #354052;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .jobs-table tbody tr:nth-child(even) {
+            background: #f7f9fd;
+        }
+
+        .jobs-table tbody tr:hover {
+            background: #eaf1ff;
+        }
+
+        /* Action Buttons */
+
+        .update-btn,
+        .delete-btn {
+            padding: 8px 12px;
+            margin: 3px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .update-btn {
+            background: #2458d3;
+        }
+
+        .update-btn:hover {
+            background: #153eaa;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background: #b02a37;
+        }
+
+        .no-jobs {
+            text-align: center;
+            padding: 35px;
+            color: #647084;
+        }
+
+        .page-message {
+            max-width: 1200px;
+            margin: 20px auto;
+            text-align: center;
+            color: #354052;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+            .jobs-page {
+                padding: 30px 4%;
+            }
+
+            .jobs-heading h1 {
+                font-size: 28px;
+            }
+
+            .search-container input {
+                font-size: 13px;
+            }
+
+            .search-container button {
+                padding: 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">💼</span>
+            <span>Sowmya JobPortal</span>
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/list-jobs.html">Browse Jobs</a>
+            <a href="/add-job.html">Post a Job</a>
+            <a href="/about.html">About us</a>
+            <a href="/contact.html">Contact us</a>
+        </nav>
+
+        <a href="/add-job.html" class="nav-button">
+            + Add Job
+        </a>
+
+    </header>
+
+
+    <!-- Main Jobs Section -->
+
+    <main class="jobs-page">
+
+        <div class="jobs-heading">
+
+            <p class="small-heading">CAREER OPPORTUNITIES</p>
+
+            <h1>Explore Available Jobs</h1>
+
+            <p>
+                Find your next opportunity and take the next step in your career.
+            </p>
+
+        </div>
+
+
+        <!-- Search Box -->
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by job title, company, location or skills..."
+                aria-label="Search jobs"
+            >
+
+            <button type="button" id="searchButton">
+                Search
+            </button>
+
+        </div>
+
+
+        <!-- Add Job -->
+
+        <div class="add-job-container">
+
+            <a href="/add-job.html" class="add-job-button">
+                + Post a New Job
+            </a>
+
+        </div>
+
+
+        <p class="jobs-total" id="jobsTotal">
+            Loading jobs...
+        </p>
+
+
+        <!-- Jobs Table -->
+
+        <div class="jobs-table-container">
+
+            <table class="jobs-table">
+
+                <thead>
+                    <tr>
+                        <th>Job ID</th>
+                        <th>Title of Job</th>
+                        <th>Company</th>
+                        <th>Location</th>
+                        <th>Salary</th>
+                        <th>Skills</th>
+                        <th>Interview Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="jobsTableBody">
+
+                    <tr>
+                        <td colspan="8" class="no-jobs">
+                            Loading jobs...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <p id="pageMessage" class="page-message"></p>
+
+    </main>
+
+
+    <!-- JavaScript -->
+
+    <script>
+        const tableBody = document.getElementById("jobsTableBody");
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
+        const jobsTotal = document.getElementById("jobsTotal");
+        const pageMessage = document.getElementById("pageMessage");
+
+        let allJobs = [];
+
+        // Load jobs from the server
+
+        async function loadJobs() {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="no-jobs">
+                        Loading jobs...
+                    </td>
+                </tr>
+            `;
+
+            try {
+                const response = await fetch("/jobs");
+
+                if (!response.ok) {
+                    throw new Error("Unable to load jobs from the server.");
+                }
+
+                allJobs = await response.json();
+
+                displayJobs(allJobs);
+
+            } catch (error) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="no-jobs">
+                            Could not load jobs. Check your server and database.
+                        </td>
+                    </tr>
+                `;
+
+                jobsTotal.textContent = "Jobs could not be loaded.";
+                pageMessage.textContent = error.message;
+            }
+        }
+
+
+        // Safely create a table cell
+
+        function createCell(value) {
+            const cell = document.createElement("td");
+            cell.textContent = value ?? "";
+            return cell;
+        }
+
+
+        // Display jobs in the table
+
+        function displayJobs(jobs) {
+            tableBody.innerHTML = "";
+            jobsTotal.textContent = "Total jobs: " + jobs.length;
+            pageMessage.textContent = "";
+
+            if (jobs.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="no-jobs">
+                            No jobs found. Try another search or add a new job.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            jobs.forEach(job => {
+                const row = document.createElement("tr");
+
+                row.appendChild(createCell(job.job_id));
+                row.appendChild(createCell(job.title));
+                row.appendChild(createCell(job.company));
+                row.appendChild(createCell(job.location));
+
+                const salary = job.salary == null
+                    ? ""
+                    : "₹" + Number(job.salary).toLocaleString("en-IN");
+
+                row.appendChild(createCell(salary));
+                row.appendChild(createCell(job.skills));
+
+                let interviewDate = "";
+
+                if (job.interview_date) {
+                    interviewDate = String(job.interview_date).slice(0, 10);
+                }
+
+                row.appendChild(createCell(interviewDate));
+
+
+                // Actions Cell
+
+                const actionsCell = document.createElement("td");
+
+
+                // Update Button
+
+                const updateButton = document.createElement("button");
+
+                updateButton.textContent = "Update";
+                updateButton.className = "update-btn";
+                updateButton.type = "button";
+
+                updateButton.addEventListener("click", () => {
+                    window.location.href =
+                        `/edit-job.html?id=${encodeURIComponent(job.job_id)}`;
+                });
+
+
+                // Delete Button
+
+                const deleteButton = document.createElement("button");
+
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "delete-btn";
+                deleteButton.type = "button";
+
+                deleteButton.addEventListener("click", async () => {
+
+                    const confirmed = confirm(
+                        `Are you sure you want to delete job ${job.job_id} - ${job.title}?`
+                    );
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    deleteButton.disabled = true;
+                    deleteButton.textContent = "Deleting...";
+
+                    try {
+                        const response = await fetch(
+                            `/jobs/${encodeURIComponent(job.job_id)}`,
+                            {
+                                method: "DELETE"
+                            }
+                        );
+
+                        const result = await response.text();
+
+                        if (!response.ok) {
+                            throw new Error(result);
+                        }
+
+                        alert(result);
+
+                        // Reload the jobs from MySQL
+                        await loadJobs();
+
+                    } catch (error) {
+                        alert("Could not delete job: " + error.message);
+
+                        deleteButton.disabled = false;
+                        deleteButton.textContent = "Delete";
+                    }
+                });
+
+
+                actionsCell.appendChild(updateButton);
+                actionsCell.appendChild(deleteButton);
+
+                row.appendChild(actionsCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+
+        // Search jobs
+
+        function searchJobs() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            const filteredJobs = allJobs.filter(job => {
+
+                const searchableText = [
+                    job.job_id,
+                    job.title,
+                    job.company,
+                    job.location,
+                    job.salary,
+                    job.skills,
+                    job.interview_date
+                ].join(" ").toLowerCase();
+
+                return searchableText.includes(searchTerm);
+            });
+
+            displayJobs(filteredJobs);
+        }
+
+
+        // Search while typing
+
+        searchInput.addEventListener("input", searchJobs);
+
+        searchButton.addEventListener("click", searchJobs);
+
+
+        // Load jobs when the page opens
+
+        loadJobs();
+    </script>
+
+</body>
+
+</html>

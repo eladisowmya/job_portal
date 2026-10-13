@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Post a Job | JobPortal</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .job-form-section {
+            min-height: 100vh;
+            padding: 50px 20px;
+            background: #f3f6fd;
+        }
+
+        .form-container {
+            max-width: 750px;
+            margin: auto;
+            padding: 35px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-container h1 {
+            color: #172033;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .form-description {
+            color: #748095;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .job-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 7px;
+            color: #26334a;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d8dfeb;
+            border-radius: 7px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2458d3;
+            box-shadow: 0 0 0 3px rgba(36, 88, 211, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            grid-column: 1 / -1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #2458d3;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background: #153eaa;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2458d3;
+        }
+
+        #message {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .job-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width,
+            .submit-button,
+            #message {
+                grid-column: 1;
+            }
+
+            .form-container {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span>💼</span>
+            <span>Sowmya JobPortal</span>
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/list-jobs.html">Find Jobs</a>
+            <a href="/add-job.html">Post a Job</a>
+             <a href="/about.html">About us</a>
+            <a href="/contact.html">Contact us</a>
+        </nav>
+
+    </header>
+
+
+    <section class="job-form-section">
+
+        <div class="form-container">
+
+            <h1>Post a New Job</h1>
+
+            <p class="form-description">
+                Enter the job information below.
+            </p>
+
+            <form id="jobForm" class="job-form">
+
+                <div class="form-group">
+                    <label for="job_id">Job ID</label>
+
+                    <input
+                        type="number"
+                        id="job_id"
+                        name="job_id"
+                        placeholder="Example: 101"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="title">Title of Job</label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="Example: Software Developer"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+
+                    <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        placeholder="Enter company name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="location">Job Location</label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="Example: Hyderabad"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="salary">Salary</label>
+
+                    <input
+                        type="number"
+                        id="salary"
+                        name="salary"
+                        placeholder="Enter annual salary"
+                        min="0"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="interview_date">Interview Date</label>
+
+                    <input
+                        type="date"
+                        id="interview_date"
+                        name="interview_date"
+                    >
+                </div>
+
+
+                <div class="form-group full-width">
+                    <label for="skills">Required Skills</label>
+
+                    <textarea
+                        id="skills"
+                        name="skills"
+                        placeholder="Example: HTML, CSS, Java, SQL"
+                        required
+                    ></textarea>
+                </div>
+
+
+                <button type="submit" class="submit-button">
+                    Save Job Details
+                </button>
+
+                <p id="message"></p>
+
+            </form>
+
+            <a href="/list-jobs.html" class="back-link">
+                View All Jobs →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <script>
+        const jobForm = document.getElementById("jobForm");
+        const message = document.getElementById("message");
+
+        jobForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            message.textContent = "Saving job details...";
+            message.style.color = "#2458d3";
+
+            const formData = new FormData(jobForm);
+            const jobData = Object.fromEntries(formData.entries());
+
+            jobData.job_id = Number(jobData.job_id);
+            jobData.salary = Number(jobData.salary);
+
+            try {
+                const response = await fetch("/jobs", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(jobData)
+                });
+
+                const result = await response.text();
+
+                if (response.ok) {
+                    message.textContent = "Job added successfully!";
+                    message.style.color = "green";
+                    jobForm.reset();
+                } else {
+                    message.textContent = result;
+                    message.style.color = "red";
+                }
+
+            } catch (error) {
+                message.textContent =
+                    "Unable to connect to the server. Check app.js.";
+                message.style.color = "red";
+            }
+        });
+    </script>
+
+</body>
+</html>
